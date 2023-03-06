@@ -30,7 +30,7 @@ jobs:
           username: token
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          repository: navikt/pensjon-maskinporten-test/
+          repository: navikt/pensjon-maskinporten-test
           tags: ${{ env.TAG }}
 
        # Deploy to dev-gcp
