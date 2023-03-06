@@ -40,5 +40,5 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: .nais/nais.yaml
-          IMAGE: docker.pkg.github.com/navikt/pensjon-maskinporten-test:${{ env.TAG }}
+          IMAGE: docker.pkg.github.com/navikt/pensjon-maskinporten-test/pensjon-maskinporten-test:${{ env.TAG }}
           TEAM: pensjon-saksbehandling
