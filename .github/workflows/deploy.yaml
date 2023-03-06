@@ -18,7 +18,7 @@ jobs:
       # Build
       - name: Build
         env:
-          GITHUB_TOKEN: ${{ secrets.READER_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gradle clean build
 
       # Build image
