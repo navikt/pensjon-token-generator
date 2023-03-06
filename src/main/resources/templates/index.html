@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Maskinporten-Test</title>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+<div class="container authenticated">
+    <form action="/logout">
+        <div>
+            <button type="submit" class="btn btn-primary">Logout</button>
+        </div>
+    </form>
+</div>
+<br>
+<br>
+<div style="display: table; margin: 0 auto; width: 25%">
+    <form action="javascript:getToken(scopes)">
+        <label><b>Scope:</b>
+            <select id="scopes" name="scopes" required>
+                <!--TODO: Multiple select-->
+                <option th:each="scope : ${ascopes}"
+                        th:value="${scope}"
+                        th:text="${scope}">
+                </option>
+            </select>
+            <input type="submit" value="Generate token">
+            <script>
+                function getToken(scopes) {
+                    let url = "/token?scopes=";
+                    for (let i = 0; i < scopes.selectedOptions.length; i++) {
+                        let value = scopes.selectedOptions[i];
+                        url = url + value.value;
+                        if (i + 1 < scopes.selectedOptions.length) {
+                            url = url + ","
+                        }
+                    }
+                    $.get(url,
+                        function (response) {
+                            let pre = document.getElementById('token');
+                            pre.innerHTML = response;
+                            pre.hidden = false;
+                        }
+                    )
+                }
+            </script>
+        </label>
+    </form>
+    <pre id="token" hidden
+         style="background-color: lightgray;
+                border-style: inset;
+                white-space: pre-wrap;
+                word-break: break-all">
+    </pre>
+</div>
+</body>
+</html>

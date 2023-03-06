@@ -1,0 +1,49 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: pensjon-maskinporten-test
+  namespace: pensjon-saksbehandling
+  labels:
+    team: pensjon-saksbehandling
+spec:
+  image: {{ image }}
+  port: 8080
+  ingresses:
+    - https://pensjon-maskinporten-test.dev.intern.nav.no
+  azure:
+    application:
+      enabled: true
+      tenant: nav.no
+      replyURLs:
+        - https://pensjon-maskinporten-test.dev.intern.nav.no/login/oauth2/code/azure
+      claims:
+        groups:
+          - id: "b15ec4e3-126e-494a-b510-e0a576eba92a"
+        extra:
+          - NAVident
+  maskinporten:
+    enabled: true
+    scopes:
+      consumes:
+        - name: nav:pensjon/v1/vedtaksinformasjon
+        - name: nav:pensjon/v3/alderspensjon
+        - name: nav:pensjon/afpprivat
+  liveness:
+    path: actuator/health/liveness
+    initialDelay: 30
+  readiness:
+    path: actuator/health/readiness
+    initialDelay: 30
+  replicas:
+    min: 1
+    max: 1
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 512Mi
+    requests:
+      cpu: 500m
+      memory: 256Mi
+  prometheus:
+    enabled: true
+    path: actuator/prometheus
