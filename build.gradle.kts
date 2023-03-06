@@ -5,7 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
 }
 
-group = "no.nav.pensjon"
+group = "no.nav.pensjon-saksbehandling"
 version = "1.0"
 description = "pensjon-maskinporten-test"
 

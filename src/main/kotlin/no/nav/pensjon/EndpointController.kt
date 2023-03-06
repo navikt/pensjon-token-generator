@@ -1,6 +1,6 @@
 package no.nav.pensjon
 
-import no.nav.pensjon.maskinporten.client.exceptions.MaskinportenClientException
+import no.nav.pensjonsamhandling.maskinporten.client.exceptions.MaskinportenClientException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity

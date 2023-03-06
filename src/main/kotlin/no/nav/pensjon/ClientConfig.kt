@@ -1,8 +1,8 @@
 package no.nav.pensjon
 
 import com.nimbusds.jose.jwk.RSAKey
-import no.nav.pensjon.maskinporten.client.MaskinportenClient
-import no.nav.pensjon.maskinporten.client.MaskinportenConfig
+import no.nav.pensjonsamhandling.maskinporten.client.MaskinportenClient
+import no.nav.pensjonsamhandling.maskinporten.client.MaskinportenConfig
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Configuration
 
