@@ -18,7 +18,8 @@ spec:
         - https://pensjon-maskinporten-test.dev.intern.nav.no/login/oauth2/code/azure
       claims:
         groups:
-          - id: "b15ec4e3-126e-494a-b510-e0a576eba92a"
+          - id: "b15ec4e3-126e-494a-b510-e0a576eba92a" #Team Pensjon-saksbehandling
+          - id: "8bb9b8d1-f46a-4ade-8ee8-5895eccdf8cf" #SAKSBEHANDLER
         extra:
           - NAVident
   maskinporten:
