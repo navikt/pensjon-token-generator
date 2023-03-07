@@ -14,7 +14,7 @@ spec:
     application:
       enabled: true
       allowAllUsers: true
-      tenant: nav.no
+      tenant: trygdeetaten.no
       replyURLs:
         - https://pensjon-maskinporten-test.dev.intern.nav.no/login/oauth2/code/azure
       claims:
