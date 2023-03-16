@@ -29,7 +29,7 @@ spec:
       consumes:
         - name: nav:pensjon/v1/vedtaksinformasjon
         - name: nav:pensjon/v3/alderspensjon
-        - name: nav:pensjon/afpprivat
+        - name: nav:pensjon/afpprivat/fellesordningen
   liveness:
     path: actuator/health/liveness
     initialDelay: 30
