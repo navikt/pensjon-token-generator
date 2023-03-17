@@ -3,6 +3,7 @@ package no.nav.pensjon
 import no.nav.pensjonsamhandling.maskinporten.client.exceptions.MaskinportenClientException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.internalServerError
 import org.springframework.http.ResponseEntity.ok
@@ -15,7 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
 class EndpointController(
-    val clientConfig: ClientConfig
+    val clientConfig: ClientConfig,
+    @Value("#{'\${MASKINPORTEN_SCOPES}'.split(' ')}")
+    val scopes: List<String>,
+    @Value("\${MASKINPORTEN_CLIENT_ID}")
+    val clientId: String,
+    @Value("\${MASKINPORTEN_CLIENT_JWK}")
+    val key: String
 ) {
     val log: Logger = LoggerFactory.getLogger(javaClass)
 
@@ -24,6 +31,9 @@ class EndpointController(
         model: Model,
         @AuthenticationPrincipal principal: DefaultOidcUser
     ): String {
+        scopes.forEach { scope -> println("scope:$scope") }
+        println("clientid:$clientId")
+        println("key:$key")
         model.addAttribute("ascopes", clientConfig.scopes)
         return "index"
     }
