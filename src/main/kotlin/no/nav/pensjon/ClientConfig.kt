@@ -21,7 +21,7 @@ class ClientConfig(
         "https://test.maskinporten.no",
         clientId,
         RSAKey.parse(key),
-        0
+        15
     )
     val client = MaskinportenClient(config)
 }
