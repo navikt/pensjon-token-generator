@@ -9,7 +9,7 @@ spec:
   image: {{ image }}
   port: 8080
   ingresses:
-    - https://pensjon-maskinporten-test.dev.intern.nav.no
+    - https://pensjon-maskinporten-test.intern.dev.nav.no
   azure:
     application:
       enabled: true
