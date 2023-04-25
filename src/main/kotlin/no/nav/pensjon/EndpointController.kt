@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam
 @Controller
 class EndpointController(
     val clientConfig: ClientConfig,
-    @Value("#{'\${MASKINPORTEN_SCOPES}'.split(' ')}")
-    val scopes: List<String>,
     @Value("\${MASKINPORTEN_CLIENT_ID}")
     val clientId: String,
     @Value("\${MASKINPORTEN_CLIENT_JWK}")
@@ -31,7 +29,6 @@ class EndpointController(
         model: Model,
         @AuthenticationPrincipal principal: DefaultOidcUser
     ): String {
-        scopes.forEach { scope -> println("scope:$scope") }
         println("clientid:$clientId")
         println("key:$key")
         model.addAttribute("ascopes", clientConfig.scopes)
