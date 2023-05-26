@@ -31,6 +31,7 @@ spec:
         - name: nav:pensjon/v3/alderspensjon
         - name: nav:pensjon/afpprivat
         - name: nav:pensjon/afpprivat/fellesordningen
+        - name: nav:pensjon/v1/ytelse
   liveness:
     path: actuator/health/liveness
     initialDelay: 30
