@@ -29,7 +29,7 @@ jobs:
         with:
           username: token
           password: ${{ secrets.GITHUB_TOKEN }}
-          registry: docker.pkg.github.com
+          registry: ghcr.io
           repository: navikt/pensjon-maskinporten-test/pensjon-maskinporten-test
           tags: ${{ env.TAG }}
 
@@ -40,5 +40,5 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: .nais/nais.yaml
-          IMAGE: docker.pkg.github.com/navikt/pensjon-maskinporten-test/pensjon-maskinporten-test:${{ env.TAG }}
+          IMAGE: ghcr.io/navikt/pensjon-maskinporten-test/pensjon-maskinporten-test:${{ env.TAG }}
           TEAM: pensjon-saksbehandling

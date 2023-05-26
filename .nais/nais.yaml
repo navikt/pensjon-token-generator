@@ -9,14 +9,14 @@ spec:
   image: {{ image }}
   port: 8080
   ingresses:
-    - https://pensjon-maskinporten-test.dev.intern.nav.no
+    - https://pensjon-maskinporten-test.intern.dev.nav.no
   azure:
     application:
       enabled: true
       allowAllUsers: true
       tenant: trygdeetaten.no
       replyURLs:
-        - https://pensjon-maskinporten-test.dev.intern.nav.no/login/oauth2/code/azure
+        - https://pensjon-maskinporten-test.intern.dev.nav.no/login/oauth2/code/azure
       claims:
 #        groups:
 #          - id: "b15ec4e3-126e-494a-b510-e0a576eba92a" #Team Pensjon-saksbehandling
