@@ -1,21 +1,38 @@
 package no.nav.pensjon
 
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.web.SecurityFilterChain
+
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig : WebSecurityConfigurerAdapter() {
+class SecurityConfig {
 
-    override fun configure(http: HttpSecurity) {
-        http.run {
-            authorizeRequests()
-                .antMatchers("/actuator/**").permitAll()
-                .anyRequest().authenticated()
-            oauth2Login()
-            logout().logoutSuccessUrl("/")
-        }
+    @Bean
+    fun filterChain(http: HttpSecurity): SecurityFilterChain {
+        http
+            .authorizeHttpRequests { authorizeHttpRequests ->
+                authorizeHttpRequests
+                    .requestMatchers("/actuator/health/liveness", "/actuator/health/readiness", "/actuator/prometheus").permitAll()
+                    .anyRequest().authenticated()
+            }
+            .oauth2Login {
+            }
+            .logout{ logoutConfigurer ->
+                logoutConfigurer.logoutSuccessUrl("/")
+            }
+
+        return http.build()
+//
+//        http.run {
+//            authorizeRequests()
+//                .antMatchers("/actuator/**").permitAll()
+//                .anyRequest().authenticated()
+//            oauth2Login()
+//            logout().logoutSuccessUrl("/")
+//        }
     }
 }
