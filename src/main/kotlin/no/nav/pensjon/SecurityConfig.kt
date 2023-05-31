@@ -20,19 +20,12 @@ class SecurityConfig {
                     .anyRequest().authenticated()
             }
             .oauth2Login {
+                //Default
             }
             .logout{ logoutConfigurer ->
                 logoutConfigurer.logoutSuccessUrl("/")
             }
 
         return http.build()
-//
-//        http.run {
-//            authorizeRequests()
-//                .antMatchers("/actuator/**").permitAll()
-//                .anyRequest().authenticated()
-//            oauth2Login()
-//            logout().logoutSuccessUrl("/")
-//        }
     }
 }
