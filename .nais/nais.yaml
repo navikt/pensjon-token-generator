@@ -34,6 +34,7 @@ spec:
         - name: nav:pensjon/v1/ytelse
         - name: nav:pensjon/v1/ytelsehistorikk
         - name: nav:etterlatteytelser:vedtaksinformasjon.read
+        - name: nav:pensjon/afpprivat/mottarafpprivat
   liveness:
     path: actuator/health/liveness
     initialDelay: 30
