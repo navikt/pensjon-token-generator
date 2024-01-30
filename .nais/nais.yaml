@@ -36,8 +36,8 @@ spec:
         - name: nav:etterlatteytelser:vedtaksinformasjon.read
         - name: nav:pensjon/afpprivat/mottarafpprivat
         - name: nav:pensjon/afpprivat/fellesordningen
-        - name: nav:uforetrygd:tpordningene:harmottattuforeetter62.read
-        - name: nav:uforetrygd:tpordningene:uforeperioder.read
+        - name: nav:uforetrygd:tpordningene.harmottattuforeetter62.read
+        - name: nav:uforetrygd:tpordningene.uforeperioder.read
   liveness:
     path: actuator/health/liveness
     initialDelay: 30
