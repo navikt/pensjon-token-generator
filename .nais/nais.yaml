@@ -39,6 +39,7 @@ spec:
         - name: nav:uforetrygd:tpordningene.harmottattuforeetter62.read
         - name: nav:uforetrygd:tpordningene.uforeperioder.read
         - name: nav:pensjon:folketrygdbeholdning
+        - name: nav:helse/v1/uforeopplysninger
 
   liveness:
     path: actuator/health/liveness
