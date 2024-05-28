@@ -38,6 +38,7 @@ spec:
         - name: nav:pensjon/afpprivat/fellesordningen
         - name: nav:uforetrygd:tpordningene.harmottattuforeetter62.read
         - name: nav:uforetrygd:tpordningene.uforeperioder.read
+        - name: nav:uforetrygd:tpordningene.harlopendevedtakomufore.read
         - name: nav:pensjon:folketrygdbeholdning
         - name: nav:pensjon/v1/samordning
         - name: nav:pensjon/v1/tpregisteret
