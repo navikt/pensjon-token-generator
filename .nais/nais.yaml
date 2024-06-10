@@ -39,6 +39,7 @@ spec:
         - name: nav:uforetrygd:tpordningene.harmottattuforeetter62.read
         - name: nav:uforetrygd:tpordningene.uforeperioder.read
         - name: nav:uforetrygd:tpordningene.harlopendevedtakomufore.read
+        - name: nav:uforetrygd:tpordningene.haruforesoknadunderbehandling.read
         - name: nav:pensjon:folketrygdbeholdning
         - name: nav:pensjon/v1/samordning
         - name: nav:pensjon/v1/tpregisteret
