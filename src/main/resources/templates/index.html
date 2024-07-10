@@ -51,6 +51,15 @@
                 function copyToClipboard() {
                     let text = document.getElementById('token');
                     navigator.clipboard.writeText(text.innerHTML);
+
+                    let button = document.getElementById('copybutton')
+                    button.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"2em\" height=\"2em\" fill=\"none\" viewBox=\"0 0 24 24\" focusable=\"false\" role=\"img\"><path fill=\"currentColor\" fill-rule=\"evenodd\" d=\"M8.25 3A.75.75 0 0 1 9 2.25h6a.75.75 0 0 1 .75.75v1.25H18a.75.75 0 0 1 .75.75v16a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V5A.75.75 0 0 1 6 4.25h2.25zm7.5 3a.75.75 0 0 1-.75.75H9A.75.75 0 0 1 8.25 6v-.25h-1.5v14.5h10.5V5.75h-1.5zm-1.5-.75h-4.5v-1.5h4.5zm.28 7.78a.75.75 0 1 0-1.06-1.06l-1.97 1.97-.97-.97a.75.75 0 1 0-1.06 1.06l1.5 1.5a.75.75 0 0 0 1.06 0z\" clip-rule=\"evenodd\"></path></svg>"
+                    setTimeout(() => {
+                        button.innerHTML = " <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"2em\" height=\"2em\" fill=\"none\" viewBox=\"0 0 24 24\" focusable=\"false\" role=\"img\">\n" +
+                            "            <path fill=\"currentColor\" fill-rule=\"evenodd\" d=\"M8.25 3A.75.75 0 0 1 9 2.25h6a.75.75 0 0 1 .75.75v1.25H18a.75.75 0 0 1 .75.75v16a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V5A.75.75 0 0 1 6 4.25h2.25zm7.5 3a.75.75 0 0 1-.75.75H9A.75.75 0 0 1 8.25 6v-.25h-1.5v14.5h10.5V5.75h-1.5zm-1.5-.75h-4.5v-1.5h4.5zm-5.25 5a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zm0 3a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 17a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75\"\n" +
+                            "                  clip-rule=\"evenodd\"></path>\n" +
+                            "        </svg>"
+                    }, 2000)
                 }
             </script>
         </label>
@@ -61,12 +70,11 @@
                 white-space: pre-wrap;
                 word-break: break-all">
     </pre>
-    <button id="copybutton" hidden onclick="copyToClipboard()" style="background-color: lightblue">
+    <button id="copybutton" onclick="copyToClipboard()" type="button">
         <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="none" viewBox="0 0 24 24" focusable="false" role="img">
             <path fill="currentColor" fill-rule="evenodd" d="M8.25 3A.75.75 0 0 1 9 2.25h6a.75.75 0 0 1 .75.75v1.25H18a.75.75 0 0 1 .75.75v16a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V5A.75.75 0 0 1 6 4.25h2.25zm7.5 3a.75.75 0 0 1-.75.75H9A.75.75 0 0 1 8.25 6v-.25h-1.5v14.5h10.5V5.75h-1.5zm-1.5-.75h-4.5v-1.5h4.5zm-5.25 5a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zm0 3a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 17a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75"
                   clip-rule="evenodd"></path>
         </svg>
-        Copy
     </button>
 </div>
 </body>
