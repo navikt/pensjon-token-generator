@@ -46,6 +46,7 @@ spec:
         - name: nav:helse/v1/uforeopplysninger
         - name: nav:pensjon/alderspensjon/status
         - name: klp:oftp/simulering
+        - name: nav:pensjonssimulator:simulering
 
   liveness:
     path: actuator/health/liveness
