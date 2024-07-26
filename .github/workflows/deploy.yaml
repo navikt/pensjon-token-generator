@@ -1,8 +1,8 @@
 name: "Build and deploy pensjon-maskinporten-test"
+
 on:
-  push:
-    branches:
-      - "main"
+  push
+
 env:
   "IMAGE": "ghcr.io/${{ github.repository }}:${{ github.sha }}"
 jobs:
@@ -36,6 +36,7 @@ jobs:
       - name: "Build and push the Docker image"
         run: "docker build --pull --tag ${IMAGE} . && docker push ${IMAGE}"
   "deployAppToDev":
+    if: github.ref == 'refs/heads/main'
     name: "Deploy app to dev"
     permissions:
       contents: "read"
