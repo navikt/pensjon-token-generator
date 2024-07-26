@@ -1,0 +1,5 @@
+spring:
+  # Last inn endringer på Thymleaf-templater ved lokal utvikling
+  thymeleaf:
+    prefix: file:src/main/resources/templates/
+    cache: false

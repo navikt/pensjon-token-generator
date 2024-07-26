@@ -21,7 +21,17 @@ class EndpointController(
         model: Model,
         @AuthenticationPrincipal principal: DefaultOidcUser
     ): String {
-        model.addAttribute("ascopes", maskinportenScopes)
+        val scopeTree: Map<String, Map<String, List<String>>> = maskinportenScopes
+            .sorted()
+            .groupBy { it.split(":")[0] }
+            .map {
+                it.key to it.value.groupBy { scope ->
+                    val split = scope.split(":", "/")
+                    if (split.size > 1) split[1] else split[0]
+                }
+            }.toMap()
+
+        model.addAttribute("scopeTree", scopeTree)
         return "index"
     }
 

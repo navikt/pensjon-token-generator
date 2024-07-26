@@ -3,79 +3,101 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Maskinporten-Test</title>
+    <title>Pensjon Maskinporten Token Generator</title>
     <meta charset="UTF-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        ul.no-bullets {
+            list-style-type: none;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
-<div class="container authenticated">
-    <form action="/logout">
-        <div>
-            <button type="submit" class="btn btn-primary">Logout</button>
-        </div>
-    </form>
-</div>
-<br>
-<br>
-<div style="display: table; margin: 0 auto; width: 25%">
-    <form action="javascript:getToken(scopes)">
-        <label><b>Scope:</b>
-            <select id="scopes" name="scopes" required>
-                <!--TODO: Multiple select-->
-                <option th:each="scope : ${ascopes}"
-                        th:value="${scope}"
-                        th:text="${scope}">
-                </option>
-            </select>
-            <input type="submit" value="Generate token">
-            <script>
-                function getToken(scopes) {
-                    let url = "/token?scopes=";
-                    for (let i = 0; i < scopes.selectedOptions.length; i++) {
-                        let value = scopes.selectedOptions[i];
-                        url = url + value.value;
-                        if (i + 1 < scopes.selectedOptions.length) {
-                            url = url + ","
-                        }
-                    }
-                    $.get(url,
-                        function (response) {
-                            let pre = document.getElementById('token');
-                            pre.innerHTML = response;
-                            pre.hidden = false;
-                            let copybutton = document.getElementById('copybutton')
-                            copybutton.hidden = false;
-                        }
-                    )
-                }
-                function copyToClipboard() {
-                    let text = document.getElementById('token');
-                    navigator.clipboard.writeText(text.innerHTML);
+    <div class="container">
+        <h1>Maskinporten Tokens</h1>
+        <div class="row">
+            <div class="col">
+                <h2>Scope:</h2>
+                <div th:each="org: ${scopeTree}">
+                    <ul class="no-bullets" th:each="domain: ${org.value}">
+                        <li th:each="scope : ${#lists.sort(domain.value)}">
+                            <a
+                                    href="#" th:text="${scope}"
+                                    th:onclick="@{'hentToken(\'' + ${scope} + '\')'}"
+                                    onclick="hentToken('scope')"
+                            >
+                                ${scope}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
-                    let button = document.getElementById('copybutton')
-                    button.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"2em\" height=\"2em\" fill=\"none\" viewBox=\"0 0 24 24\" focusable=\"false\" role=\"img\"><path fill=\"currentColor\" fill-rule=\"evenodd\" d=\"M8.25 3A.75.75 0 0 1 9 2.25h6a.75.75 0 0 1 .75.75v1.25H18a.75.75 0 0 1 .75.75v16a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V5A.75.75 0 0 1 6 4.25h2.25zm7.5 3a.75.75 0 0 1-.75.75H9A.75.75 0 0 1 8.25 6v-.25h-1.5v14.5h10.5V5.75h-1.5zm-1.5-.75h-4.5v-1.5h4.5zm.28 7.78a.75.75 0 1 0-1.06-1.06l-1.97 1.97-.97-.97a.75.75 0 1 0-1.06 1.06l1.5 1.5a.75.75 0 0 0 1.06 0z\" clip-rule=\"evenodd\"></path></svg>"
-                    setTimeout(() => {
-                        button.innerHTML = " <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"2em\" height=\"2em\" fill=\"none\" viewBox=\"0 0 24 24\" focusable=\"false\" role=\"img\">\n" +
-                            "            <path fill=\"currentColor\" fill-rule=\"evenodd\" d=\"M8.25 3A.75.75 0 0 1 9 2.25h6a.75.75 0 0 1 .75.75v1.25H18a.75.75 0 0 1 .75.75v16a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V5A.75.75 0 0 1 6 4.25h2.25zm7.5 3a.75.75 0 0 1-.75.75H9A.75.75 0 0 1 8.25 6v-.25h-1.5v14.5h10.5V5.75h-1.5zm-1.5-.75h-4.5v-1.5h4.5zm-5.25 5a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zm0 3a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 17a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75\"\n" +
-                            "                  clip-rule=\"evenodd\"></path>\n" +
-                            "        </svg>"
-                    }, 2000)
-                }
-            </script>
-        </label>
-    </form>
-    <pre id="token" hidden
-         style="background-color: lightgray;
-                border-style: inset;
-                white-space: pre-wrap;
-                word-break: break-all">
-    </pre>
-    <button id="copybutton" hidden onclick="copyToClipboard()" type="button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="none" viewBox="0 0 24 24" focusable="false" role="img">
-            <path fill="currentColor" fill-rule="evenodd" d="M8.25 3A.75.75 0 0 1 9 2.25h6a.75.75 0 0 1 .75.75v1.25H18a.75.75 0 0 1 .75.75v16a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V5A.75.75 0 0 1 6 4.25h2.25zm7.5 3a.75.75 0 0 1-.75.75H9A.75.75 0 0 1 8.25 6v-.25h-1.5v14.5h10.5V5.75h-1.5zm-1.5-.75h-4.5v-1.5h4.5zm-5.25 5a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zm0 3a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 17a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75"
-                  clip-rule="evenodd"></path>
-        </svg>
-    </button>
-</div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header container-fluid text-light bg-dark">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h2 class="w-75">Token</h2>
+                            </div>
+                            <div class="col-md-2 float-right">
+                                <button class="btn btn-light" id="copybutton" onclick="copyToClipboard()" type="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="none" viewBox="0 0 24 24" focusable="false" role="img">
+                                        <path fill="currentColor" fill-rule="evenodd" d="M8.25 3A.75.75 0 0 1 9 2.25h6a.75.75 0 0 1 .75.75v1.25H18a.75.75 0 0 1 .75.75v16a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V5A.75.75 0 0 1 6 4.25h2.25zm7.5 3a.75.75 0 0 1-.75.75H9A.75.75 0 0 1 8.25 6v-.25h-1.5v14.5h10.5V5.75h-1.5zm-1.5-.75h-4.5v-1.5h4.5zm-5.25 5a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zm0 3a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 17a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75"
+                                              clip-rule="evenodd"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <pre id="token" style="white-space: pre-wrap; word-break: break-all">Velg scope i listen til venstre</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function displayToken(token) {
+            let pre = document.getElementById('token');
+
+            pre.innerHTML = token;
+            pre.hidden = false;
+
+            document.getElementById('copybutton').hidden = false;
+        }
+
+        function hentToken(scope) {
+            let request = new XMLHttpRequest();
+
+            request.open("GET", "/token?scopes=" + scope, true);
+
+            request.onreadystatechange = function () {
+                if (request.readyState !== 4 || request.status !== 200) return;
+
+                displayToken(request.responseText)
+            };
+
+            request.send();
+        }
+
+        function copyToClipboard() {
+            let text = document.getElementById('token');
+            navigator.clipboard.writeText(text.innerHTML);
+
+            let button = document.getElementById('copybutton')
+            button.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"2em\" height=\"2em\" fill=\"none\" viewBox=\"0 0 24 24\" focusable=\"false\" role=\"img\"><path fill=\"currentColor\" fill-rule=\"evenodd\" d=\"M8.25 3A.75.75 0 0 1 9 2.25h6a.75.75 0 0 1 .75.75v1.25H18a.75.75 0 0 1 .75.75v16a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V5A.75.75 0 0 1 6 4.25h2.25zm7.5 3a.75.75 0 0 1-.75.75H9A.75.75 0 0 1 8.25 6v-.25h-1.5v14.5h10.5V5.75h-1.5zm-1.5-.75h-4.5v-1.5h4.5zm.28 7.78a.75.75 0 1 0-1.06-1.06l-1.97 1.97-.97-.97a.75.75 0 1 0-1.06 1.06l1.5 1.5a.75.75 0 0 0 1.06 0z\" clip-rule=\"evenodd\"></path></svg>"
+            setTimeout(() => {
+                button.innerHTML = " <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"2em\" height=\"2em\" fill=\"none\" viewBox=\"0 0 24 24\" focusable=\"false\" role=\"img\">\n" +
+                    "            <path fill=\"currentColor\" fill-rule=\"evenodd\" d=\"M8.25 3A.75.75 0 0 1 9 2.25h6a.75.75 0 0 1 .75.75v1.25H18a.75.75 0 0 1 .75.75v16a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V5A.75.75 0 0 1 6 4.25h2.25zm7.5 3a.75.75 0 0 1-.75.75H9A.75.75 0 0 1 8.25 6v-.25h-1.5v14.5h10.5V5.75h-1.5zm-1.5-.75h-4.5v-1.5h4.5zm-5.25 5a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zm0 3a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 17a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75\"\n" +
+                    "                  clip-rule=\"evenodd\"></path>\n" +
+                    "        </svg>"
+            }, 2000)
+        }
+    </script>
+
 </body>
 </html>
