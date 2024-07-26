@@ -13,7 +13,7 @@ jobs:
     runs-on: "ubuntu-latest"
     outputs:
       version: ${{ steps.version.outputs.version }}
-      image: "${{ steps.login.outputs.registry }}/pensjon-elsam-minibuss/pensjon-elsam-minibuss:${{ env.VERSION }}"
+      image: "${{ steps.login.outputs.registry }}/${{ github.repository }}/${{ github.repository }}:${{ env.VERSION }}"
 
     steps:
       - uses: "actions/checkout@v4"
