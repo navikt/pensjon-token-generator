@@ -1,11 +1,7 @@
 package no.nav.pensjon
 
-import no.nav.pensjonsamhandling.maskinporten.client.exceptions.MaskinportenClientException
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.ResponseEntity
-import org.springframework.http.ResponseEntity.internalServerError
 import org.springframework.http.ResponseEntity.ok
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser
@@ -16,30 +12,20 @@ import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
 class EndpointController(
-    val clientConfig: ClientConfig,
-    @Value("\${MASKINPORTEN_CLIENT_ID}")
-    val clientId: String,
-    @Value("\${MASKINPORTEN_CLIENT_JWK}")
-    val key: String
+    @Value("#{'\${MASKINPORTEN_SCOPES}'.split(' ')}")
+    val maskinportenScopes: List<String>,
+    val maskinportenTokenService: MaskinportenTokenService,
 ) {
-    val log: Logger = LoggerFactory.getLogger(javaClass)
-
     @GetMapping("/")
     fun index(
         model: Model,
         @AuthenticationPrincipal principal: DefaultOidcUser
     ): String {
-        println("clientid:$clientId")
-        println("key:$key")
-        model.addAttribute("ascopes", clientConfig.scopes)
+        model.addAttribute("ascopes", maskinportenScopes)
         return "index"
     }
 
     @GetMapping("/token")
-    fun getToken(@RequestParam("scopes") scopes: Array<String>): ResponseEntity<String> = try {
-        ok(clientConfig.client.getTokenString(*scopes))
-    } catch(e: MaskinportenClientException) {
-        log.error("Error fetching token.", e)
-        internalServerError().build()
-    }
+    fun getToken(@RequestParam("scopes") scopes: List<String>): ResponseEntity<String> =
+        ok(maskinportenTokenService.accessToken(scopes, emptyList(), null))
 }
