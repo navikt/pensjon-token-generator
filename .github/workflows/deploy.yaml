@@ -13,7 +13,7 @@ jobs:
     runs-on: "ubuntu-latest"
     outputs:
       version: ${{ steps.version.outputs.version }}
-      image: "${{ steps.login.outputs.registry }}/${{ github.repository }}/${{ github.repository }}:${{ env.VERSION }}"
+      image: "${{ steps.login.outputs.registry }}/${{ github.repository }}/pensjon-maskinporten-test:${{ env.VERSION }}"
 
     steps:
       - uses: "actions/checkout@v4"
@@ -55,9 +55,9 @@ jobs:
         with:
           context: .
           file: Dockerfile
-          tags: "${{ steps.login.outputs.registry }}/${{ github.repository }}/${{ github.repository }}:${{ env.VERSION }},${{ steps.login.outputs.registry }}/${{ github.repository }}/${{ github.repository }}:main"
+          tags: "${{ steps.login.outputs.registry }}/${{ github.repository }}/pensjon-maskinporten-test:${{ env.VERSION }},${{ steps.login.outputs.registry }}/${{ github.repository }}/pensjon-maskinporten-test:main"
           cache-from: |
-            "type=registry,ref=${{ steps.login.outputs.registry }}/${{ github.repository }}/${{ github.repository }}:main"
+            "type=registry,ref=${{ steps.login.outputs.registry }}/${{ github.repository }}/pensjon-maskinporten-test:main"
           cache-to: type=inline
 
   "deployAppToDev":
