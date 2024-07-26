@@ -25,6 +25,7 @@ dependencies {
     implementation("com.nimbusds", "nimbus-jose-jwt", "9.21")
     implementation("io.micrometer:micrometer-registry-prometheus")
     implementation("no.nav.pensjonsamhandling", "maskinporten-client", "1.0.1")
+    implementation("net.logstash.logback", "logstash-logback-encoder", "7.3")
     implementation("org.springframework.boot", "spring-boot-starter-actuator")
     implementation("org.springframework.boot", "spring-boot-starter-oauth2-client")
     implementation("org.springframework.boot", "spring-boot-starter-security")
