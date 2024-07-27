@@ -23,12 +23,6 @@ dependencies {
     implementation("org.springframework.boot", "spring-boot-starter-security")
     implementation("org.springframework.boot", "spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot", "spring-boot-starter-web")
-    testImplementation(kotlin("test-junit5"))
-    testImplementation("org.springframework.boot", "spring-boot-starter-test") {
-        exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
-        exclude(module = "mockito-core")
-    }
-    testImplementation("org.springframework.security", "spring-security-test")
 }
 
 
