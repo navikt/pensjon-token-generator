@@ -1,5 +1,8 @@
 package no.nav.pensjon
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.ObjectWriter
+import com.nimbusds.jwt.SignedJWT
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser
@@ -8,12 +11,16 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 
+
 @Controller
 class EndpointController(
     @Value("#{'\${MASKINPORTEN_SCOPES}'.split(' ')}")
     val maskinportenScopes: List<String>,
     val maskinportenTokenService: MaskinportenTokenService,
 ) {
+    final val mapper = ObjectMapper()
+    val prettyPrinter: ObjectWriter = mapper.writerWithDefaultPrettyPrinter()
+
     val scopeTree: Map<String, Map<String, List<String>>> = maskinportenScopes
         .sorted()
         .groupBy { it.split(":")[0] }
@@ -32,7 +39,15 @@ class EndpointController(
     ): String {
         model.addAttribute("scopeTree", scopeTree)
         scopes?.let {
-            model.addAttribute("token", maskinportenTokenService.accessToken(it, emptyList(), null))
+            val accessToken = maskinportenTokenService.accessToken(it, emptyList(), null)
+            model.addAttribute("token", accessToken)
+
+            try {
+                model.addAttribute(
+                    "payload",
+                    prettyPrinter.writeValueAsString(mapper.readTree(SignedJWT.parse(accessToken).parsedParts[1].decodeToString()))
+                )
+            } catch (_: Exception) {}
         }
         return "index"
     }

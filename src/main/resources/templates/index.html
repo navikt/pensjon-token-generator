@@ -51,6 +51,10 @@
                     <div class="card-body">
                         <pre id="token" style="white-space: pre-wrap; word-break: break-all" th:text="@{(${token}!=null) ? ${token} : 'Velg scope i listen til venstre'}">Velg scope i listen til venstre</pre>
                     </div>
+
+                    <div class="card-footer" th:if="${payload != null}">
+                        <pre id="payload" style="white-space: pre-wrap; word-break: break-all" th:text="${payload}"></pre>
+                    </div>
                 </div>
             </div>
         </div>
