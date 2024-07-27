@@ -44,9 +44,15 @@ class EndpointController(
                 model.addAttribute("token", accessToken)
 
                 try {
+                    val jwt = SignedJWT.parse(accessToken)
+                    val payload = mapper.readTree(jwt.parsedParts[1].decodeToString())
                     model.addAttribute(
                         "payload",
-                        prettyPrinter.writeValueAsString(mapper.readTree(SignedJWT.parse(accessToken).parsedParts[1].decodeToString()))
+                        prettyPrinter.writeValueAsString(payload)
+                    )
+                    model.addAttribute(
+                        "expires",
+                        mapper.readTree(jwt.parsedParts[1].decodeToString()).get("exp").toString()
                     )
                 } catch (_: Exception) {
                 }

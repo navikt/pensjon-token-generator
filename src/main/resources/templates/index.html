@@ -14,7 +14,9 @@
         }
     </style>
 </head>
-<body>
+<body onload="updateExpires()">
+    <span id="expires" th:text="${expires}" hidden></span>
+
     <div class="container">
         <h1>Maskinporten Tokens</h1>
 
@@ -64,6 +66,9 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        <div id="tokenExpired" class="alert alert-warning" role="alert" hidden>
+                            Token er utløpt
+                        </div>
                         <pre id="token" style="white-space: pre-wrap; word-break: break-all" th:text="@{(${token}!=null) ? ${token} : 'Velg scope i listen til venstre'}">Velg scope i listen til venstre</pre>
                     </div>
 
@@ -76,6 +81,30 @@
     </div>
 
     <script>
+        function updateExpires() {
+            let expiresElement = document.getElementById('expires')
+
+            if (expiresElement) {
+                let interval = window.setInterval(function() {
+                    let now = new Date()
+                    let expires = new Date(expiresElement.innerHTML * 1000)
+                    let timeLeft = (expires.getTime() - now.getTime())/1000;
+
+                    if (timeLeft < 0) {
+                        let tokenExpiredElement = document.getElementById('tokenExpired')
+                        tokenExpiredElement.hidden = false
+                        tokenExpiredElement.innerText = "Token er utløpt"
+
+                        window.clearInterval(interval)
+                    } else if (timeLeft < 30) {
+                        let tokenExpired = document.getElementById('tokenExpired')
+                        tokenExpired.hidden = false
+                        tokenExpired.innerText = "Token utløper om " + Math.trunc(timeLeft) + " sekunder"
+                    }
+                }, 1000)
+            }
+        }
+
         function copyToClipboard() {
             let text = document.getElementById('token');
             navigator.clipboard.writeText(text.innerHTML);
