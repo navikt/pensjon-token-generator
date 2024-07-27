@@ -1,6 +1,5 @@
 package no.nav.pensjon
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.nimbusds.jose.JOSEObjectType
 import com.nimbusds.jose.JWSAlgorithm
@@ -21,9 +20,7 @@ import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 import org.springframework.web.client.*
 import java.time.Instant
-import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
-import java.time.temporal.TemporalAmount
 import java.util.*
 
 @Service
@@ -111,13 +108,5 @@ class MaskinportenTokenService(
         @JsonProperty("token_type") val tokenType: String,
         @JsonProperty("expires_in") val expiresIn: Long,
         @JsonProperty("access_token") val accessToken: String,
-    ) {
-        @JsonIgnore
-        val issued = LocalDateTime.now()
-
-        @JsonIgnore
-        fun expires(expireRestriction: TemporalAmount): LocalDateTime {
-            return issued.plusSeconds(expiresIn).minus(expireRestriction)
-        }
-    }
+    )
 }
