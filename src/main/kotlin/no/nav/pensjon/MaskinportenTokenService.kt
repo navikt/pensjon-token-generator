@@ -10,6 +10,8 @@ import com.nimbusds.jose.crypto.RSASSASigner
 import com.nimbusds.jose.jwk.RSAKey
 import com.nimbusds.jwt.JWTClaimsSet
 import com.nimbusds.jwt.SignedJWT
+import net.logstash.logback.argument.StructuredArguments
+import net.logstash.logback.argument.StructuredArguments.*
 import net.logstash.logback.marker.Markers.append
 import org.slf4j.LoggerFactory.getLogger
 import org.springframework.beans.factory.annotation.Autowired
@@ -76,6 +78,7 @@ class MaskinportenTokenService(
     } catch (e: HttpStatusCodeException) {
         try {
             val errroResponse = objectMapper.readValue(e.responseBodyAsString, ErrorResponse::class.java)
+            logger.warn("Feil ved henting av token {}", f(errroResponse))
             throw MaskinportenException(e.message, e, errroResponse)
         } catch (_: JsonProcessingException) {
             logger.error(
