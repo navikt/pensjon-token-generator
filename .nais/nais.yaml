@@ -36,7 +36,7 @@ spec:
         - name: nav:etterlatteytelser:vedtaksinformasjon.read
         - name: nav:pensjon/afpprivat/mottarafpprivat
         - name: nav:pensjon/afpprivat/fellesordningen
-        - name: nav:uforetrygd:erungufor
+        - name: nav:uforetrygd:erungufor.read
         - name: nav:uforetrygd:tpordningene.harmottattuforeetter62.read
         - name: nav:uforetrygd:tpordningene.uforeperioder.read
         - name: nav:uforetrygd:tpordningene.harlopendevedtakomufore.read
