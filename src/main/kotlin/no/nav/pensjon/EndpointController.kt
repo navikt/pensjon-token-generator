@@ -38,16 +38,24 @@ class EndpointController(
         @AuthenticationPrincipal principal: DefaultOidcUser
     ): String {
         model.addAttribute("scopeTree", scopeTree)
-        scopes?.let {
-            val accessToken = maskinportenTokenService.accessToken(it, emptyList(), null)
-            model.addAttribute("token", accessToken)
+        try {
+            scopes?.let {
+                val accessToken = maskinportenTokenService.accessToken(it, emptyList(), null)
+                model.addAttribute("token", accessToken)
 
-            try {
-                model.addAttribute(
-                    "payload",
-                    prettyPrinter.writeValueAsString(mapper.readTree(SignedJWT.parse(accessToken).parsedParts[1].decodeToString()))
-                )
-            } catch (_: Exception) {}
+                try {
+                    model.addAttribute(
+                        "payload",
+                        prettyPrinter.writeValueAsString(mapper.readTree(SignedJWT.parse(accessToken).parsedParts[1].decodeToString()))
+                    )
+                } catch (_: Exception) {
+                }
+            }
+        } catch (e: MaskinportenTokenService.MaskinportenException) {
+            model.addAttribute("error", e.message)
+            model.addAttribute("errorResponse", e.errorResponse)
+        } catch (e: Exception) {
+            model.addAttribute("error", e.toString())
         }
         return "index"
     }

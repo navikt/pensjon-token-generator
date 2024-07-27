@@ -1,6 +1,8 @@
 package no.nav.pensjon
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonProcessingException
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.nimbusds.jose.JOSEObjectType
 import com.nimbusds.jose.JWSAlgorithm
 import com.nimbusds.jose.JWSHeader
@@ -30,6 +32,7 @@ class MaskinportenTokenService(
     private val rsaKey: RSAKey,
     private val issuer: String,
     private val tokenEndpoint: String,
+    private val objectMapper: ObjectMapper,
 ) {
     private val logger = getLogger(javaClass)
 
@@ -42,7 +45,8 @@ class MaskinportenTokenService(
         @Value("\${MASKINPORTEN_CLIENT_JWK}") clientJwk: String,
         @Value("\${MASKINPORTEN_ISSUER}") issuer: String,
         @Value("\${MASKINPORTEN_TOKEN_ENDPOINT}") tokenEndpoint: String,
-    ) : this(maskinportenRestTemplate, clientId, RSAKey.parse(clientJwk), issuer, tokenEndpoint)
+        objectMapper: ObjectMapper,
+    ) : this(maskinportenRestTemplate, clientId, RSAKey.parse(clientJwk), issuer, tokenEndpoint, objectMapper)
 
     fun accessToken(scope: List<String>, audience: List<String>, pid: String?) = fetch(scope, audience, pid).accessToken
 
@@ -70,11 +74,18 @@ class MaskinportenTokenService(
             ),
         ).body
     } catch (e: HttpStatusCodeException) {
-        logger.error(
-            append("error_response", e.responseBodyAsString),
-            "Failed to fetch token, got status={}, message={}", e.statusText, e.message,
-        )
-        throw RuntimeException("Unable to fetch token", e)
+        try {
+            val errroResponse = objectMapper.readValue(e.responseBodyAsString, ErrorResponse::class.java)
+            throw MaskinportenException(e.message, e, errroResponse)
+        } catch (_: JsonProcessingException) {
+            logger.error(
+                append("error_response", e.responseBodyAsString),
+                "Failed to fetch token, got status={}, message={}", e.statusText, e.message,
+            )
+
+            throw e
+        }
+
     } ?: throw RuntimeException("Received empty body in response")
 
     private fun createAssertion(scope: List<String>, audience: List<String>, pid: String?, issueTime: Instant = Instant.now()): String =
@@ -109,4 +120,16 @@ class MaskinportenTokenService(
         @JsonProperty("expires_in") val expiresIn: Long,
         @JsonProperty("access_token") val accessToken: String,
     )
+
+    data class ErrorResponse(
+        @JsonProperty("error") val error: String,
+        @JsonProperty("error_description") val errorDescription: String,
+        @JsonProperty("error_uri") val errorUri: String,
+    )
+
+    class MaskinportenException(
+        message: String?,
+        cause: Throwable,
+        val errorResponse: ErrorResponse,
+    ) : RuntimeException(message, cause)
 }

@@ -17,6 +17,21 @@
 <body>
     <div class="container">
         <h1>Maskinporten Tokens</h1>
+
+        <div class="alert alert-danger" role="alert" th:if="${errorResponse != null}">
+            En feil oppstod ved henting av token:
+
+            <span th:if="${errorResponse.error != null}" th:text="${errorResponse.error}"></span>
+            <div th:if="${errorResponse.errorDescription != null}" th:text="${errorResponse.errorDescription}"></div>
+            <a th:if="${errorResponse.errorUri != null}" th:href="${errorResponse.errorUri}" th:text="${errorResponse.errorUri}"></a>
+        </div>
+
+        <div class="alert alert-danger" role="alert" th:if="${errorResponse == null && error != null}">
+            En uhåndtert feil oppstod ved henting av tokens
+
+            <div th:text="${error}"></div>
+        </div>
+
         <div class="row">
             <div class="col">
                 <h2>Scope:</h2>
