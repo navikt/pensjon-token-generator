@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam
 @Controller
 class EndpointController(
     @Value("#{'\${MASKINPORTEN_SCOPES}'.split(' ')}")
-    val maskinportenScopes: List<String>,
-    val maskinportenTokenService: MaskinportenTokenService,
+    private val maskinportenScopes: List<String>,
+    private val maskinportenTokenService: MaskinportenTokenService,
 ) {
-    final val mapper = ObjectMapper()
-    val prettyPrinter: ObjectWriter = mapper.writerWithDefaultPrettyPrinter()
+    private val mapper = ObjectMapper()
+    private val prettyPrinter: ObjectWriter = mapper.writerWithDefaultPrettyPrinter()
 
     val scopeTree: Map<String, Map<String, List<String>>> = maskinportenScopes
         .sorted()
