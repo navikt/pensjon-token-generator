@@ -16,11 +16,10 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
+    implementation("com.nimbusds:nimbus-jose-jwt:9.40")
     implementation("io.micrometer:micrometer-registry-prometheus")
     implementation("net.logstash.logback", "logstash-logback-encoder", "7.3")
     implementation("org.springframework.boot", "spring-boot-starter-actuator")
-    implementation("org.springframework.boot", "spring-boot-starter-oauth2-client")
-    implementation("org.springframework.boot", "spring-boot-starter-security")
     implementation("org.springframework.boot", "spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot", "spring-boot-starter-web")
 }
