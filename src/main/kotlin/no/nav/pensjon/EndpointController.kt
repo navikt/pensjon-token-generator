@@ -52,7 +52,11 @@ class EndpointController(
                     )
                     model.addAttribute(
                         "expires",
-                        mapper.readTree(jwt.parsedParts[1].decodeToString()).get("exp").toString()
+                        payload.get("exp").asText()
+                    )
+                    model.addAttribute(
+                        "scope",
+                        payload.get("scope").asText()
                     )
                 } catch (_: Exception) {
                 }

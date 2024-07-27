@@ -15,7 +15,7 @@
     </style>
 </head>
 <body onload="updateExpires()">
-    <span id="expires" th:text="${expires}" hidden></span>
+    <span id="expires" th:if="${expires != null}" th:text="${expires}" hidden></span>
 
     <div class="container">
         <h1>Maskinporten Tokens</h1>
@@ -69,6 +69,12 @@
                         <div id="tokenExpired" class="alert alert-warning" role="alert" hidden>
                             Token er utløpt
                         </div>
+
+                        <div class="card-title" th:if="${scope != null}">
+                            <h5 th:text="${scope}">Scope</h5>
+                            <hr/>
+                        </div>
+
                         <pre id="token" style="white-space: pre-wrap; word-break: break-all" th:text="@{(${token}!=null) ? ${token} : 'Velg scope i listen til venstre'}">Velg scope i listen til venstre</pre>
                     </div>
 
@@ -93,7 +99,7 @@
                     if (timeLeft <= 0) {
                         let tokenExpiredElement = document.getElementById('tokenExpired')
                         tokenExpiredElement.hidden = false
-                        tokenExpiredElement.innerText = "Token er utløpt"
+                        tokenExpiredElement.innerText = "Token er utløpt!"
 
                         window.clearInterval(interval)
                     } else if (timeLeft === 1) {
