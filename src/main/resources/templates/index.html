@@ -23,12 +23,8 @@
                 <div th:each="org: ${scopeTree}">
                     <ul class="no-bullets" th:each="domain: ${org.value}">
                         <li th:each="scope : ${#lists.sort(domain.value)}">
-                            <a
-                                    href="#" th:text="${scope}"
-                                    th:onclick="@{'hentToken(\'' + ${scope} + '\')'}"
-                                    onclick="hentToken('scope')"
-                            >
-                                ${scope}
+                            <a th:href="@{'/?scopes=' + ${scope}}" th:text="${scope}">
+                                nav:pensjon:scope
                             </a>
                         </li>
                     </ul>
@@ -53,7 +49,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <pre id="token" style="white-space: pre-wrap; word-break: break-all">Velg scope i listen til venstre</pre>
+                        <pre id="token" style="white-space: pre-wrap; word-break: break-all" th:text="@{(${token}!=null) ? ${token} : 'Velg scope i listen til venstre'}">Velg scope i listen til venstre</pre>
                     </div>
                 </div>
             </div>
@@ -61,29 +57,6 @@
     </div>
 
     <script>
-        function displayToken(token) {
-            let pre = document.getElementById('token');
-
-            pre.innerHTML = token;
-            pre.hidden = false;
-
-            document.getElementById('copybutton').hidden = false;
-        }
-
-        function hentToken(scope) {
-            let request = new XMLHttpRequest();
-
-            request.open("GET", "/token?scopes=" + scope, true);
-
-            request.onreadystatechange = function () {
-                if (request.readyState !== 4 || request.status !== 200) return;
-
-                displayToken(request.responseText)
-            };
-
-            request.send();
-        }
-
         function copyToClipboard() {
             let text = document.getElementById('token');
             navigator.clipboard.writeText(text.innerHTML);
