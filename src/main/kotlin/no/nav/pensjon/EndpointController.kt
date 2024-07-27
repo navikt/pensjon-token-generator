@@ -3,8 +3,6 @@ package no.nav.pensjon
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.ok
-import org.springframework.security.core.annotation.AuthenticationPrincipal
-import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -19,7 +17,6 @@ class EndpointController(
     @GetMapping("/")
     fun index(
         model: Model,
-        @AuthenticationPrincipal principal: DefaultOidcUser
     ): String {
         val scopeTree: Map<String, Map<String, List<String>>> = maskinportenScopes
             .sorted()

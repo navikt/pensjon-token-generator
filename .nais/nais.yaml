@@ -24,6 +24,8 @@ spec:
 #          - id: "" #SAKSBEHANDLER
         extra:
           - NAVident
+    sidecar:
+      enabled: true
   maskinporten:
     enabled: true
     scopes:
