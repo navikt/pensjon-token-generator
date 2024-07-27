@@ -91,7 +91,7 @@ class MaskinportenTokenService(
                 .issuer(clientId)
                 .audience(issuer)
                 .issueTime(Date.from(issueTime))
-                .claim("scope", scope)
+                .claim("scope", scope.joinToString(separator = " "))
                 .expirationTime(Date.from(issueTime.plus(60, ChronoUnit.SECONDS)))
                 .jwtID(UUID.randomUUID().toString())
                 .apply {
