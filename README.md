@@ -1,5 +1,4 @@
-# Pensjon-maskinporten-test
-
+# Pensjon-token-generator
 Applikasjonen gir team pensjon-saksbehandling muligheten til å generere opp token for test av endepunkter som krever Maskinporten-token.
 
 Tjenesten som krever Maskinporten-token med bestemt scope må deployes før klienten som ønsker å utstede token med samme scope.
