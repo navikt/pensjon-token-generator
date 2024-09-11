@@ -28,26 +28,27 @@ spec:
     enabled: true
     scopes:
       consumes:
-        - name: nav:pensjon/v1/vedtaksinformasjon
-        - name: nav:pensjon/v3/alderspensjon
-        - name: nav:pensjon/afpprivat
-        - name: nav:pensjon/v1/ytelse
-        - name: nav:pensjon/v1/ytelsehistorikk
+        - name: klp:oftp/simulering
         - name: nav:etterlatteytelser:vedtaksinformasjon.read
-        - name: nav:pensjon/afpprivat/mottarafpprivat
+        - name: nav:helse/v1/uforeopplysninger
+        - name: nav:pensjon/afpprivat
         - name: nav:pensjon/afpprivat/fellesordningen
-        - name: nav:uforetrygd:erungufor.read
-        - name: nav:uforetrygd:tpordningene.harmottattuforeetter62.read
-        - name: nav:uforetrygd:tpordningene.uforeperioder.read
-        - name: nav:uforetrygd:tpordningene.harlopendevedtakomufore.read
-        - name: nav:uforetrygd:tpordningene.haruforesoknadunderbehandling.read
-        - name: nav:pensjon:folketrygdbeholdning
+        - name: nav:pensjon/afpprivat/mottarafpprivat
+        - name: nav:pensjon/alderspensjon/status
         - name: nav:pensjon/v1/samordning
         - name: nav:pensjon/v1/tpregisteret
-        - name: nav:helse/v1/uforeopplysninger
-        - name: nav:pensjon/alderspensjon/status
-        - name: klp:oftp/simulering
+        - name: nav:pensjon/v1/vedtaksinformasjon
+        - name: nav:pensjon/v1/ytelse
+        - name: nav:pensjon/v1/ytelsehistorikk
+        - name: nav:pensjon/v3/alderspensjon
+        - name: nav:pensjon:folketrygdbeholdning
+        - name: nav:pensjon:mock.livsvarig.afp.offentlig
         - name: nav:pensjonssimulator:simulering
+        - name: nav:uforetrygd:erungufor.read
+        - name: nav:uforetrygd:tpordningene.harlopendevedtakomufore.read
+        - name: nav:uforetrygd:tpordningene.harmottattuforeetter62.read
+        - name: nav:uforetrygd:tpordningene.haruforesoknadunderbehandling.read
+        - name: nav:uforetrygd:tpordningene.uforeperioder.read
         - name: spk:nav
 
   liveness:
