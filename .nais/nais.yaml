@@ -50,6 +50,7 @@ spec:
         - name: nav:uforetrygd:tpordningene.haruforesoknadunderbehandling.read
         - name: nav:uforetrygd:tpordningene.uforeperioder.read
         - name: spk:nav
+        - name: spk:ofa
 
   liveness:
     path: actuator/health/liveness
