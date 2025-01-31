@@ -28,6 +28,7 @@ spec:
     enabled: true
     scopes:
       consumes:
+        - name: klp:ofa/nav 
         - name: klp:oftp/simulering
         - name: nav:etterlatteytelser:vedtaksinformasjon.read
         - name: nav:helse/v1/uforeopplysninger
