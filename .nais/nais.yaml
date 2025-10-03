@@ -37,6 +37,8 @@ spec:
         - name: nav:pensjon/afpprivat/mottarafpprivat
         - name: nav:pensjon/alderspensjon/status
         - name: nav:pensjon/folketrygdbeholdning.read
+        - name: nav:pensjon/simulering/alderspensjonogprivatafp
+        - name: nav:pensjon/simulering.read
         - name: nav:pensjon/v1/samordning
         - name: nav:pensjon/v1/tpregisteret
         - name: nav:pensjon/v1/vedtaksinformasjon
