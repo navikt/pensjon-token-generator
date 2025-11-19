@@ -49,10 +49,11 @@ spec:
         - name: nav:pensjon:mock.livsvarig.afp.offentlig
         - name: nav:pensjonssimulator:simulering
         - name: nav:uforetrygd:erungufor.read
-        - name: nav:uforetrygd:tpordningene.harlopendevedtakomufore.read
-        - name: nav:uforetrygd:tpordningene.harmottattuforeetter62.read
-        - name: nav:uforetrygd:tpordningene.haruforesoknadunderbehandling.read
-        - name: nav:uforetrygd:tpordningene.uforeperioder.read
+        - name: nav:uforetrygd/tpordningene/harlopendevedtakomufore.read
+        - name: nav:uforetrygd/tpordningene/harmottattuforeetter62.read
+        - name: nav:uforetrygd/tpordningene/haruforesoknadunderbehandling.read
+        - name: nav:uforetrygd/tpordningene/uforeperioder.read
+        - name: nav:uforetrygd/tpordningene/saralderspaslag/uforeperioder.read
         - name: spk:nav
         - name: spk:ofa
 
