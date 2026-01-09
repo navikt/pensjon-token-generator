@@ -55,6 +55,7 @@ spec:
         - name: nav:uforetrygd/tpordningene/uforeperioder.read
         - name: spk:nav
         - name: spk:ofa
+        - name: stbsbp:nav
 
   liveness:
     path: actuator/health/liveness
