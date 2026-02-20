@@ -32,13 +32,14 @@ spec:
         - name: klp:oftp/simulering
         - name: nav:etterlatteytelser:vedtaksinformasjon.read
         - name: nav:helse/v1/uforeopplysninger
+        - name: nav:pensjon/afpoffentlig
         - name: nav:pensjon/afpprivat
         - name: nav:pensjon/afpprivat/fellesordningen
         - name: nav:pensjon/afpprivat/mottarafpprivat
         - name: nav:pensjon/alderspensjon/status
         - name: nav:pensjon/folketrygdbeholdning.read
-        - name: nav:pensjon/simulering/alderspensjonogprivatafp
         - name: nav:pensjon/simulering.read
+        - name: nav:pensjon/simulering/alderspensjonogprivatafp
         - name: nav:pensjon/v1/samordning
         - name: nav:pensjon/v1/tpregisteret
         - name: nav:pensjon/v1/vedtaksinformasjon
@@ -48,11 +49,11 @@ spec:
         - name: nav:pensjon:folketrygdbeholdning
         - name: nav:pensjon:mock.livsvarig.afp.offentlig
         - name: nav:pensjonssimulator:simulering
-        - name: nav:uforetrygd:erungufor.read
         - name: nav:uforetrygd/tpordningene/harlopendevedtakomufore.read
         - name: nav:uforetrygd/tpordningene/harmottattuforeetter62.read
         - name: nav:uforetrygd/tpordningene/haruforesoknadunderbehandling.read
         - name: nav:uforetrygd/tpordningene/uforeperioder.read
+        - name: nav:uforetrygd:erungufor.read
         - name: spk:nav
         - name: spk:ofa
         - name: stbsbp:nav
