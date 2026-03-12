@@ -43,6 +43,7 @@ spec:
         - name: nav:pensjon/v1/samordning
         - name: nav:pensjon/v1/tpregisteret
         - name: nav:pensjon/v1/vedtaksinformasjon
+        - name: nav:pensjon/vedtaksinformasjon.read
         - name: nav:pensjon/v1/ytelse
         - name: nav:pensjon/v1/ytelsehistorikk
         - name: nav:pensjon/v3/alderspensjon
