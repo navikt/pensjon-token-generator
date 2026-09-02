@@ -1,8 +1,7 @@
 package no.nav.pensjon
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonProcessingException
-import com.fasterxml.jackson.databind.ObjectMapper
+import tools.jackson.databind.ObjectMapper
 import com.nimbusds.jose.JOSEObjectType
 import com.nimbusds.jose.JWSAlgorithm
 import com.nimbusds.jose.JWSHeader
@@ -10,7 +9,6 @@ import com.nimbusds.jose.crypto.RSASSASigner
 import com.nimbusds.jose.jwk.RSAKey
 import com.nimbusds.jwt.JWTClaimsSet
 import com.nimbusds.jwt.SignedJWT
-import net.logstash.logback.argument.StructuredArguments
 import net.logstash.logback.argument.StructuredArguments.*
 import net.logstash.logback.marker.Markers.append
 import org.slf4j.LoggerFactory.getLogger
@@ -23,6 +21,7 @@ import org.springframework.stereotype.Service
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 import org.springframework.web.client.*
+import tools.jackson.core.JacksonException
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 import java.util.*
@@ -80,7 +79,7 @@ class MaskinportenTokenService(
             val errroResponse = objectMapper.readValue(e.responseBodyAsString, ErrorResponse::class.java)
             logger.warn("Feil ved henting av token {}", f(errroResponse))
             throw MaskinportenException(e.message, e, errroResponse)
-        } catch (_: JsonProcessingException) {
+        } catch (_: JacksonException) {
             logger.error(
                 append("error_response", e.responseBodyAsString),
                 "Failed to fetch token, got status={}, message={}", e.statusText, e.message,
