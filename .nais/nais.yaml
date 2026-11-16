@@ -49,6 +49,8 @@ spec:
         - name: nav:pensjon/v3/alderspensjon
         - name: nav:pensjon:folketrygdbeholdning
         - name: nav:pensjon:mock.livsvarig.afp.offentlig
+        - name: nav:pensjonopptjening:ekstern.afp.beholdningsgrunnlag.beregn.read
+        - name: nav:pensjonopptjening:ekstern.afp.beholdningsgrunnlag.simuler.read
         - name: nav:pensjonopptjening:ekstern.beholdning.read
         - name: nav:pensjonssimulator:simulering
         - name: nav:uforetrygd/tpordningene/harlopendevedtakomufore.read
