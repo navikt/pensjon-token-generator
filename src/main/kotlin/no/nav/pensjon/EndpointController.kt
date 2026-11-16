@@ -39,13 +39,8 @@ class EndpointController(
     ): String {
         model.addAttribute("scopeTree", scopeTree)
         try {
-            val audience = if (scopes?.any { it.contains("nav:pensjonopptjening:ekstern") } == true) {
-                listOf("https://pensjonopptjening-gw.ekstern.dev.nav.no/opptjening/afp/beholdningsgrunnlag")
-            } else {
-                emptyList()
-            }
             scopes?.let {
-                val accessToken = maskinportenTokenService.accessToken(it, audience, null)
+                val accessToken = maskinportenTokenService.accessToken(it, emptyList(), null)
                 model.addAttribute("token", accessToken)
 
                 try {

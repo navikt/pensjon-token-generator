@@ -19,16 +19,16 @@ spec:
         - https://pensjon-maskinporten-test.intern.dev.nav.no/login/oauth2/code/azure
         - http://localhost/login/oauth2/code/azure
       claims:
-#        groups:
-#          - id: "b15ec4e3-126e-494a-b510-e0a576eba92a" #Team Pensjon-saksbehandling
-#          - id: "" #SAKSBEHANDLER
+        #        groups:
+        #          - id: "b15ec4e3-126e-494a-b510-e0a576eba92a" #Team Pensjon-saksbehandling
+        #          - id: "" #SAKSBEHANDLER
         extra:
           - NAVident
   maskinporten:
     enabled: true
     scopes:
       consumes:
-        - name: klp:ofa/nav 
+        - name: klp:ofa/nav
         - name: klp:oftp/simulering
         - name: nav:etterlatteytelser:vedtaksinformasjon.read
         - name: nav:helse/v1/uforeopplysninger
@@ -49,9 +49,6 @@ spec:
         - name: nav:pensjon/v3/alderspensjon
         - name: nav:pensjon:folketrygdbeholdning
         - name: nav:pensjon:mock.livsvarig.afp.offentlig
-        - name: nav:pensjonopptjening:ekstern.afp.beholdningsgrunnlag.beregn.read
-        - name: nav:pensjonopptjening:ekstern.afp.beholdningsgrunnlag.simuler.read
-        - name: nav:pensjonopptjening:ekstern.beholdning.read
         - name: nav:pensjonssimulator:simulering
         - name: nav:uforetrygd/tpordningene/harlopendevedtakomufore.read
         - name: nav:uforetrygd/tpordningene/harmottattuforeetter62.read
